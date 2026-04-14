@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<!-- saved from url=(0064)file:///C:/Users/vitor/Downloads/prospeccao_ag_embalagens_2.html -->
+<html lang="pt-BR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AG Embalagens — Prospecção Foodservice</title>
+<link href="./index_files/css2" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --bordeaux:#7B1223;
+    --bordeaux-dark:#5a0d19;
+    --cream:#fdf8f5;
+    --gray-200:#e8e8e8;
+    --gray-400:#999;
+    --gray-600:#555;
+    --gray-800:#222;
+    --green:#1a7a3c;
+    --shadow:0 2px 12px rgba(0,0,0,0.08);
+  }
+  body{font-family:'Barlow',sans-serif;background:var(--cream);color:var(--gray-800);min-height:100vh}
+  .header{background:var(--bordeaux);color:#fff;padding:16px 24px}
+  .header-logo{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:26px;letter-spacing:1px}
+  .header-sub{font-size:11px;opacity:.75;text-transform:uppercase;letter-spacing:.5px;margin-top:3px}
+  .main{padding:20px;max-width:960px;margin:0 auto}
+  .search-card{background:#fff;border-radius:10px;padding:20px;box-shadow:var(--shadow);margin-bottom:18px}
+  .search-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:17px;color:var(--bordeaux);margin-bottom:14px;text-transform:uppercase;letter-spacing:.5px}
+  .search-row{display:flex;gap:8px;flex-wrap:wrap}
+  .input-wrap{flex:1;min-width:220px}
+  .input-wrap input{width:100%;border:1.5px solid var(--gray-200);border-radius:7px;padding:11px 14px;font-family:'Barlow',sans-serif;font-size:14px;outline:none;transition:border .2s}
+  .input-wrap input:focus{border-color:var(--bordeaux)}
+  .tipos-label{font-size:12px;color:var(--gray-600);margin-top:14px;margin-bottom:6px;font-weight:500}
+  .tipos{display:flex;flex-wrap:wrap;gap:6px}
+  .tipo-btn{border:1.5px solid var(--gray-200);background:#fff;border-radius:20px;padding:5px 13px;font-family:'Barlow',sans-serif;font-size:12px;cursor:pointer;transition:all .2s;color:var(--gray-600);user-select:none}
+  .tipo-btn.active{background:var(--bordeaux);border-color:var(--bordeaux);color:#fff;font-weight:500}
+  .tipos-actions{display:flex;gap:8px;margin-top:8px}
+  .tipo-action-btn{background:none;border:none;font-size:11px;color:var(--bordeaux);cursor:pointer;text-decoration:underline;padding:0;font-family:'Barlow',sans-serif}
+  .btn-buscar{background:var(--bordeaux);color:#fff;border:none;border-radius:7px;padding:11px 24px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;letter-spacing:.5px;cursor:pointer;text-transform:uppercase;white-space:nowrap;transition:background .2s}
+  .btn-buscar:hover{background:var(--bordeaux-dark)}
+  .btn-buscar:disabled{background:var(--gray-400);cursor:not-allowed}
+  .status{font-size:13px;color:var(--gray-600);margin-top:10px;min-height:18px}
+  .results-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+  .results-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:17px;color:var(--gray-800);text-transform:uppercase;letter-spacing:.5px}
+  .btn-pdf{background:var(--green);color:#fff;border:none;border-radius:7px;padding:9px 18px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;cursor:pointer;text-transform:uppercase;letter-spacing:.5px;display:flex;align-items:center;gap:6px;transition:opacity .2s}
+  .btn-pdf:hover{opacity:.88}
+  .leads-list{display:flex;flex-direction:column;gap:8px}
+  .lead-card{background:#fff;border-radius:8px;box-shadow:var(--shadow);padding:14px 16px;display:flex;align-items:flex-start;gap:12px;border-left:3px solid var(--bordeaux)}
+  .lead-num{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:24px;color:var(--bordeaux);line-height:1;min-width:30px}
+  .lead-info{flex:1}
+  .lead-nome{font-weight:600;font-size:14px;color:var(--gray-800);margin-bottom:2px}
+  .lead-tipo{font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--bordeaux);font-weight:600;margin-bottom:5px}
+  .lead-end{font-size:13px;color:var(--gray-600);margin-bottom:3px}
+  .lead-tel{font-size:13px;color:var(--gray-600);margin-bottom:3px}
+  .lead-rating{font-size:12px;color:#b8860b;font-weight:500;margin-bottom:4px}
+  .lead-link a{font-size:12px;color:var(--bordeaux);text-decoration:none;font-weight:500}
+  .lead-link a:hover{text-decoration:underline}
+  .empty{text-align:center;padding:40px 20px;color:var(--gray-400);font-size:14px}
+  .badge{display:inline-block;background:var(--bordeaux);color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;padding:2px 10px;border-radius:10px;margin-left:8px}
+  .erro{background:#fff0f0;border:1px solid #f5c0c0;border-radius:7px;padding:10px 14px;font-size:13px;color:#a00;margin-top:10px;display:none}
+  .spinner{display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;animation:spin .6s linear infinite;vertical-align:middle;margin-right:6px}
+  @keyframes spin{to{transform:rotate(360deg)}}
+</style>
+<script type="text/javascript" charset="UTF-8" src="./index_files/common.js.download"></script><script type="text/javascript" charset="UTF-8" src="./index_files/util.js.download"></script></head>
+<body>
+
+<div class="header">
+  <div class="header-logo">AG Embalagens Descartáveis</div>
+  <div class="header-sub">Prospecção Foodservice — Rota do Vendedor</div>
+</div>
+
+<div class="main">
+  <div class="search-card">
+    <div class="search-title">Buscar leads por localização</div>
+    <div class="search-row">
+      <div class="input-wrap">
+        <input type="text" id="localInput" placeholder="Ex: Petrópolis, Moinhos de Vento, Floresta...">
+      </div>
+      <button class="btn-buscar" id="btnBuscar" onclick="buscar()">Buscar</button>
+    </div>
+
+    <div class="tipos-label">Tipos de estabelecimento:</div>
+    <div class="tipos" id="tiposWrap">
+      <button class="tipo-btn active" data-tipo="restaurant" data-keyword="">Restaurantes</button>
+      <button class="tipo-btn active" data-tipo="meal_takeaway" data-keyword="">Lanchonetes</button>
+      <button class="tipo-btn active" data-tipo="bakery" data-keyword="">Padarias</button>
+      <button class="tipo-btn active" data-tipo="supermarket" data-keyword="">Mercados</button>
+      <button class="tipo-btn active" data-tipo="meal_delivery" data-keyword="açougue">Açougues</button>
+      <button class="tipo-btn active" data-tipo="restaurant" data-keyword="pizzaria">Pizzarias</button>
+      <button class="tipo-btn active" data-tipo="restaurant" data-keyword="sushi japonês">Sushi / Japonês</button>
+      <button class="tipo-btn active" data-tipo="bar" data-keyword="bar bebidas">Casa de Bebidas</button>
+      <button class="tipo-btn active" data-tipo="meal_delivery" data-keyword="marmitaria marmita">Marmitarias</button>
+    </div>
+    <div class="tipos-actions">
+      <button class="tipo-action-btn" onclick="toggleTodos(true)">Selecionar todos</button>
+      <button class="tipo-action-btn" onclick="toggleTodos(false)">Limpar todos</button>
+    </div>
+
+    <div class="status" id="status">Digite um bairro de Porto Alegre e clique em Buscar.</div>
+    <div class="erro" id="erroBox"></div>
+  </div>
+
+  <div id="resultsSection" style="display:none">
+    <div class="results-header">
+      <div class="results-title" id="resultsTitle">Leads encontrados</div>
+      <button class="btn-pdf" onclick="gerarPDF()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+        Gerar PDF
+      </button>
+    </div>
+    <div class="leads-list" id="leadsList"></div>
+  </div>
+</div>
+
+<script>
+var API_KEY = 'AIzaSyDH6UsG2aMfLzOL1woBYmlxe2nYYscOKms';
+
+var leadsData = [];
+var localBusca = '';
+
+// Estrutura dos tipos: { label, tipo (Places API), keyword (busca adicional) }
+var TIPOS_CONFIG = [
+  { id: 'restaurantes',   label: 'Restaurante',        tipo: 'restaurant',    keyword: '' },
+  { id: 'lanchonetes',    label: 'Lanchonete',          tipo: 'meal_takeaway', keyword: '' },
+  { id: 'padarias',       label: 'Padaria / Confeitaria', tipo: 'bakery',      keyword: '' },
+  { id: 'mercados',       label: 'Mercado',             tipo: 'supermarket',   keyword: '' },
+  { id: 'acougues',       label: 'Açougue',             tipo: 'meal_delivery', keyword: 'açougue' },
+  { id: 'pizzarias',      label: 'Pizzaria',            tipo: 'restaurant',    keyword: 'pizzaria' },
+  { id: 'sushi',          label: 'Sushi / Japonês',     tipo: 'restaurant',    keyword: 'sushi japonês' },
+  { id: 'bebidas',        label: 'Casa de Bebidas',     tipo: 'bar',           keyword: 'bar bebidas' },
+  { id: 'marmitarias',    label: 'Marmitaria',          tipo: 'meal_delivery', keyword: 'marmitaria marmita' }
+];
+
+function getTiposAtivos() {
+  var ativos = [];
+  document.querySelectorAll('.tipo-btn.active').forEach(function(btn){
+    var label = btn.textContent.trim();
+    TIPOS_CONFIG.forEach(function(c){
+      if(btn.dataset.keyword === c.keyword && btn.dataset.tipo === c.tipo){
+        ativos.push(c);
+      }
+    });
+  });
+  // Remove duplicatas por id
+  var seen = new Set();
+  return ativos.filter(function(c){
+    if(seen.has(c.id)) return false;
+    seen.add(c.id); return true;
+  });
+}
+
+document.querySelectorAll('.tipo-btn').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    btn.classList.toggle('active');
+    // Garante ao menos 1 ativo
+    var ativos = document.querySelectorAll('.tipo-btn.active');
+    if(ativos.length === 0) btn.classList.add('active');
+  });
+});
+
+function toggleTodos(ativo){
+  document.querySelectorAll('.tipo-btn').forEach(function(btn){
+    if(ativo) btn.classList.add('active');
+    else btn.classList.remove('active');
+  });
+  if(!ativo) document.querySelector('.tipo-btn').classList.add('active');
+}
+
+document.getElementById('localInput').addEventListener('keydown', function(e){
+  if(e.key === 'Enter') buscar();
+});
+
+function setStatus(msg){ document.getElementById('status').textContent = msg; }
+function showErro(msg){
+  var el = document.getElementById('erroBox');
+  el.textContent = msg;
+  el.style.display = msg ? 'block' : 'none';
+}
+function resetBtn(){
+  var btn = document.getElementById('btnBuscar');
+  btn.disabled = false;
+  btn.innerHTML = 'Buscar';
+}
+
+function buscar() {
+  var local = document.getElementById('localInput').value.trim();
+  if(!local){ setStatus('Digite um bairro ou região.'); return; }
+
+  var tiposAtivos = getTiposAtivos();
+  if(!tiposAtivos.length){ setStatus('Selecione ao menos um tipo de estabelecimento.'); return; }
+
+  localBusca = local;
+  var btn = document.getElementById('btnBuscar');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span>Buscando...';
+  setStatus('Geocodificando localização...');
+  document.getElementById('resultsSection').style.display = 'none';
+  showErro('');
+  leadsData = [];
+
+  var geocoder = new google.maps.Geocoder();
+  geocoder.geocode({ address: local + ', Porto Alegre, RS, Brasil' }, function(results, status){
+    if(status !== 'OK' || !results.length){
+      showErro('Localização não encontrada: ' + status);
+      resetBtn(); setStatus(''); return;
+    }
+
+    var loc = results[0].geometry.location;
+    setStatus('Buscando estabelecimentos...');
+
+    var service = new google.maps.places.PlacesService(document.createElement('div'));
+    var allPlaces = [];
+    var seen = new Set();
+    var pending = tiposAtivos.length;
+
+    tiposAtivos.forEach(function(config){
+      var params = {
+        location: loc,
+        radius: 1500,
+        type: config.tipo
+      };
+      if(config.keyword) params.keyword = config.keyword;
+
+      service.nearbySearch(params, function(results, status){
+        if(status === google.maps.places.PlacesServiceStatus.OK && results){
+          results.forEach(function(p){
+            if(!seen.has(p.place_id)){
+              seen.add(p.place_id);
+              allPlaces.push(Object.assign({}, p, { _config: config }));
+            }
+          });
+        }
+        pending--;
+        if(pending === 0) processarResultados(allPlaces, service);
+      });
+    });
+  });
+}
+
+function processarResultados(allPlaces, service){
+  allPlaces.sort(function(a,b){ return (b.rating||0) - (a.rating||0); });
+  var top = allPlaces.slice(0, 50);
+  setStatus('Carregando detalhes de ' + top.length + ' estabelecimentos...');
+
+  if(!top.length){ finalizarLeads([]); return; }
+
+  var detalhes = new Array(top.length);
+  var pending = top.length;
+
+  top.forEach(function(p, i){
+    service.getDetails({
+      placeId: p.place_id,
+      fields: ['name','formatted_address','formatted_phone_number','rating','url','vicinity']
+    }, function(result, status){
+      detalhes[i] = status === google.maps.places.PlacesServiceStatus.OK
+        ? Object.assign({}, p, result)
+        : p;
+      pending--;
+      if(pending === 0) finalizarLeads(detalhes);
+    });
+  });
+}
+
+function finalizarLeads(detalhes){
+  leadsData = detalhes.map(function(p, i){
+    return {
+      num: i + 1,
+      nome: p.name,
+      tipo: p._config ? p._config.label : 'Estabelecimento',
+      endereco: p.formatted_address || p.vicinity || '',
+      telefone: p.formatted_phone_number || '',
+      rating: p.rating || null,
+      maps: p.url || ('https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(p.name + ' Porto Alegre') + '&query_place_id=' + p.place_id)
+    };
+  });
+  renderLeads();
+  setStatus('');
+  resetBtn();
+}
+
+function renderLeads(){
+  var list = document.getElementById('leadsList');
+  var sec = document.getElementById('resultsSection');
+  var title = document.getElementById('resultsTitle');
+
+  if(!leadsData.length){
+    list.innerHTML = '<div class="empty">Nenhum estabelecimento encontrado nessa região.</div>';
+    sec.style.display = 'block';
+    return;
+  }
+
+  title.innerHTML = 'Leads encontrados <span class="badge">' + leadsData.length + '</span>';
+  list.innerHTML = leadsData.map(function(l){
+    return '<div class="lead-card">' +
+      '<div class="lead-num">' + String(l.num).padStart(2,'0') + '</div>' +
+      '<div class="lead-info">' +
+        '<div class="lead-tipo">' + l.tipo + '</div>' +
+        '<div class="lead-nome">' + l.nome + '</div>' +
+        '<div class="lead-end">📍 ' + l.endereco + '</div>' +
+        (l.telefone ? '<div class="lead-tel">📞 ' + l.telefone + '</div>' : '') +
+        (l.rating ? '<div class="lead-rating">★ ' + l.rating + '</div>' : '') +
+        '<div class="lead-link"><a href="' + l.maps + '" target="_blank">Ver no Google Maps →</a></div>' +
+      '</div>' +
+    '</div>';
+  }).join('');
+
+  sec.style.display = 'block';
+}
+
+function gerarPDF(){
+  if(!leadsData.length) return;
+  var hoje = new Date().toLocaleDateString('pt-BR');
+  var tiposAtivos = getTiposAtivos();
+  var tiposStr = tiposAtivos.map(function(c){ return c.label; }).join(', ');
+
+  var rows = leadsData.map(function(l){
+    return '<tr>' +
+      '<td style="padding:7px 10px;border-bottom:1px solid #e8e8e8;font-weight:700;color:#7B1223;font-size:14px">' + String(l.num).padStart(2,'0') + '</td>' +
+      '<td style="padding:7px 10px;border-bottom:1px solid #e8e8e8"><div style="font-weight:600;font-size:13px;color:#222">' + l.nome + '</div><div style="font-size:10px;color:#7B1223;text-transform:uppercase;letter-spacing:.5px;margin-top:2px">' + l.tipo + '</div></td>' +
+      '<td style="padding:7px 10px;border-bottom:1px solid #e8e8e8;font-size:12px;color:#555">' + l.endereco + '</td>' +
+      '<td style="padding:7px 10px;border-bottom:1px solid #e8e8e8;font-size:12px;color:#555">' + (l.telefone || '-') + '</td>' +
+      '<td style="padding:7px 10px;border-bottom:1px solid #e8e8e8;font-size:12px">' + (l.rating ? '★ '+l.rating : '-') + '</td>' +
+      '<td style="padding:7px 10px;border-bottom:1px solid #e8e8e8;font-size:12px"><a href="' + l.maps + '" style="color:#7B1223;text-decoration:none">Maps ↗</a></td>' +
+      '<td style="padding:7px 10px;border-bottom:1px solid #e8e8e8;width:110px;font-size:11px;color:#ccc">___________</td>' +
+    '</tr>';
+  }).join('');
+
+  var html = '<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">' +
+    '<style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:Arial,sans-serif;background:#fff;color:#222;padding:24px 28px}' +
+    '.header{background:#7B1223;color:#fff;padding:14px 20px;border-radius:8px;margin-bottom:18px;display:flex;justify-content:space-between;align-items:center}' +
+    '.logo{font-weight:700;font-size:22px;letter-spacing:1px}.sub{font-size:11px;opacity:.7;text-transform:uppercase;letter-spacing:.5px;margin-top:2px}' +
+    '.meta{font-size:12px;margin-bottom:14px;color:#555;display:flex;gap:20px;flex-wrap:wrap}.meta strong{color:#222}' +
+    'table{width:100%;border-collapse:collapse}th{background:#7B1223;color:#fff;padding:8px 10px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px}' +
+    'tr:nth-child(even){background:#fdf8f5}.footer{margin-top:18px;border-top:2px solid #7B1223;padding-top:8px;font-size:11px;color:#999;display:flex;justify-content:space-between}' +
+    '@media print{body{padding:10px}@page{margin:12mm;size:A4 landscape}}</style></head><body>' +
+    '<div class="header"><div><div class="logo">AG Embalagens Descartáveis</div><div class="sub">Lista de Prospecção — Rota do Vendedor</div></div>' +
+    '<div style="text-align:right;font-size:12px;opacity:.85">' + hoje + '</div></div>' +
+    '<div class="meta"><span><strong>Região:</strong> ' + localBusca + ', Porto Alegre - RS</span><span><strong>Total:</strong> ' + leadsData.length + ' leads</span><span><strong>Tipos:</strong> ' + tiposStr + '</span></div>' +
+    '<table><thead><tr><th>#</th><th>Estabelecimento</th><th>Endereço</th><th>Telefone</th><th>Nota</th><th>Maps</th><th>Status / Obs.</th></tr></thead>' +
+    '<tbody>' + rows + '</tbody></table>' +
+    '<div class="footer"><span>AG Embalagens Descartáveis — Porto Alegre, RS</span><span>Gerado em ' + hoje + '</span></div>' +
+    '<script>window.onload=function(){setTimeout(function(){window.print()},600)}<\/script>' +
+    '</body></html>';
+
+  var blob = new Blob([html], {type:'text/html'});
+  window.open(URL.createObjectURL(blob), '_blank');
+}
+</script>
+
+<script src="./index_files/js"></script>
+
+
+</body></html>
